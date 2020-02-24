@@ -6,8 +6,6 @@ import java.lang.management.MemoryMXBean;
 import com.sun.management.OperatingSystemMXBean;
 
 import boss.dto.SimpleOperationDto;
-import lombok.extern.slf4j.Slf4j;
-
 import org.xnio.management.XnioWorkerMXBean;
 
 import java.util.ArrayList;
