@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.management.MBeanServerConnection;
 import javax.management.remote.JMXConnector;
+import javax.ws.rs.client.WebTarget;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,13 +37,19 @@ public class RunPoller {
 			int port = Integer.parseInt(cmdUtils.getCmd(args).getOptionValue(CmdConstants.PORT));
 			
 			JmxSingleton instance = JmxSingleton.getInstance();	
-			JMXConnector jmxConnection = instance.getConnection(host, user, pass, port);
+			JMXConnector jmxConnection = instance.getJmxConnection(host, user, pass, port);
 			logger.info("Getting MBean server connection");
 			MBeanServerConnection mBeanConnection = jmxConnection.getMBeanServerConnection();
-	
-			JmxBossPoll.pollWildFlyMetrics(mBeanConnection, seconds, iterations);
+			WebTarget webConnection = instance.getWebConnection(host, user, pass, port);
+			
+			JmxBossPoll.pollWildFlyMetrics(mBeanConnection,webConnection,seconds, iterations);
+			
+			logger.info("Polling cycle completed. Closing connection...");
 			
 			jmxConnection.close();
+			
+			logger.info("JMX connection closed");
+
 			
 		} catch (Exception e) {
 			e.printStackTrace();
