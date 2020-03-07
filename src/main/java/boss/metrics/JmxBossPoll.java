@@ -65,7 +65,7 @@ public class JmxBossPoll {
 		try {
 			workerQueueSize = JMX.newMBeanProxy(mBeanConnection,
 					new ObjectName("org.xnio:type=Xnio,provider=\"nio\",worker=\"default\""),
-					org.xnio.management.XnioWorkerMXBean.class);
+					XnioWorkerMXBean.class);
 			maxWorkerPoolSize = mBeanConnection.getAttribute(
 					new ObjectName("org.xnio:type=Xnio,provider=\"nio\",worker=\"default\""), "MaxWorkerPoolSize");
 			ioThreadCount = mBeanConnection.getAttribute(
@@ -73,7 +73,7 @@ public class JmxBossPoll {
 			memoryMXBeanProxy = JMX.newMXBeanProxy(mBeanConnection, new ObjectName("java.lang:type=Memory"),
 					MemoryMXBean.class);
 			operatingSystemMXbean = JMX.newMXBeanProxy(mBeanConnection,
-					new ObjectName("java.lang:type=OperatingSystem"), com.sun.management.OperatingSystemMXBean.class);
+					new ObjectName("java.lang:type=OperatingSystem"), OperatingSystemMXBean.class);
 
 			logger.info("Max worker pool size: " + maxWorkerPoolSize);
 			logger.info("Thread count: " + ioThreadCount);
