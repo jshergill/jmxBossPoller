@@ -1,0 +1,16 @@
+/.gradle/
+/build/
+*.classpath
+*.project	
+*.settings/
+/bin/
+
+.gradle
+*.lock
+
+.DS_Store
+/**/.settings/
+
+/${env:LOGDIR}/*
+
+/**/*.class/
